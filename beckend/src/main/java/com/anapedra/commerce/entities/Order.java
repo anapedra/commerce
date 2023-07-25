@@ -45,6 +45,21 @@ public class Order implements Serializable {
     public Order() {
 
     }
+    public int getQuantityProduct(){
+        int soma = 0;
+        for (OrderItem orderItem : items) {
+            soma += orderItem.getQuantity();
+        }
+        return soma;
+    }
+
+    public double getTotal(){
+        double soma = 0.0;
+        for (OrderItem orderItem : items) {
+            soma += orderItem.getSubTotal();
+        }
+        return soma;
+    }
 
     public Long getId() {
         return id;
