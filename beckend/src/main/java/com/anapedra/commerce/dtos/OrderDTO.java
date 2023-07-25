@@ -6,6 +6,7 @@ import com.anapedra.commerce.entities.enums.OrderStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,36 +14,38 @@ import java.util.Set;
 
 public class OrderDTO implements Serializable {
     private static final long serialVersionUID=1L;
-
-    private Long id;
     private Instant moment;
+    private Long id;
     private OrderStatus status;
+    private Integer totalProduct;
+    private LocalDate dateOrder;
+    private Double total;
     private ClientDTO client;
     private PaymentDTO payment;
-    private Integer totalProduct;
-    private Double total;
     private List<OrderItemDTO>items=new ArrayList<>();
 
     public OrderDTO(){
 
     }
 
-    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment) {
+    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment,LocalDate dateOrder) {
         this.id = id;
         this.moment = moment;
         this.status = status;
         this.client = client;
         this.payment = payment;
+        this.dateOrder=dateOrder;
     }
 
     public OrderDTO(Order entity) {
-        this.id = entity.getId();
-        this.moment = entity.getMoment();
-        this.status = entity.getStatus();
-        this.client = new ClientDTO(entity.getClient());
-        this.payment = (entity.getPayment()==null) ? null : new PaymentDTO(entity.getPayment());
-        this.totalProduct = entity.getQuantityProduct();
-        this.total = entity.getTotal();
+        id = entity.getId();
+        moment = entity.getMoment();
+        status = entity.getStatus();
+        client = new ClientDTO(entity.getClient());
+        payment = (entity.getPayment()==null) ? null : new PaymentDTO(entity.getPayment());
+        totalProduct = entity.getQuantityProduct();
+        dateOrder=entity.getDateOrder();
+        total = entity.getTotal();
     }
 
 
@@ -98,6 +101,14 @@ public class OrderDTO implements Serializable {
 
     public Double getTotal() {
         return total;
+    }
+
+    public LocalDate getDateOrder() {
+        return dateOrder;
+    }
+
+    public void setDateOrder(LocalDate dateOrder) {
+        this.dateOrder = dateOrder;
     }
 
     public List<OrderItemDTO> getItems() {
