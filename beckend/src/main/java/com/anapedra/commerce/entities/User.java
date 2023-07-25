@@ -25,10 +25,8 @@ public class User implements UserDetails,Serializable {
     private String cpf;
     private String registrationEmail;
     private String password;
-
-
-
-
+    @OneToMany(mappedBy = "client")
+    private List<Order>orders=new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -54,7 +52,8 @@ public class User implements UserDetails,Serializable {
 
     }
 
-    public User(Long id, String name, Instant momentRegistration, Instant momentUpdate, String mainPhone, String cpf, String registrationEmail) {
+    public User(Long id, String name, Instant momentRegistration, Instant momentUpdate,
+                String mainPhone, String cpf, String registrationEmail) {
         this.id = id;
         this.name = name;
         this.momentRegistration = momentRegistration;
@@ -132,8 +131,9 @@ public class User implements UserDetails,Serializable {
         this.password = password;
     }
 
-
-
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
