@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_product")
@@ -34,6 +35,8 @@ public class Product implements Serializable {
     @JoinColumn(name = "product_id"),inverseJoinColumns =
     @JoinColumn(name = "category_id"))
     private Set<Category>categories=new HashSet<>();
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem>items=new HashSet<>();
 
 
 
@@ -126,21 +129,16 @@ public class Product implements Serializable {
         return categories;
     }
 
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public List<Order> getOrders(){
+        return items.stream().map(x->x.getOrder()).collect(Collectors.toList());
     }
+
+
+
 
 
 

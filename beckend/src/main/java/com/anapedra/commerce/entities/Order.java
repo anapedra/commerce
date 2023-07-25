@@ -6,6 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_order")
@@ -24,12 +29,15 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "clientId")
     private User client;
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items=new HashSet<>();
 
-    public Order(Long id, LocalDate dateOrder, Instant moment, Integer status, Payment payment, User client) {
+    public Order(Long id, LocalDate dateOrder, Instant moment, OrderStatus status,
+                 Payment payment, User client) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.moment = moment;
-        this.status = status;
+         setStatus(status);
         this.payment = payment;
         this.client = client;
     }
@@ -90,20 +98,40 @@ public class Order implements Serializable {
 
 
 
+    public Set<OrderItem> getItems() {
+        return items;
 
+    }
+    public List<Product> getProducts(){
+        return   items.stream().map(x->x.getProduct()).collect(Collectors.toList());
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return Objects.equals(getId(), order.getId());
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
