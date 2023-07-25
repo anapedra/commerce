@@ -72,7 +72,7 @@ public class OrderService {
 
     @Transactional
     public OrderDTO insert(OrderDTO dto) {
-        authService.validateAdmin();
+        authService.validateClient();
         Order entity = new Order();
         entity.setDateOrder(LocalDate.now());
         entity.setMoment(Instant.now());
@@ -87,7 +87,7 @@ public class OrderService {
 
         try {
             Order entity = orderRepository.getOne(id);
-            authService.validateSelfOrAdmin(entity.getId());
+            authService.validateAdmin();
             copyDtoToEntity(dto, entity);
             entity = orderRepository.save(entity);
             return new OrderDTO(entity);
@@ -112,14 +112,11 @@ public class OrderService {
 
     private void copyDtoToEntity(OrderDTO dto, Order entity){
 
-        entity.setDateOrder(dto.getDateOrder());
-        entity.setMoment(dto.getMoment());
+        entity.setDateOrder(LocalDate.now());
+        entity.setMoment(Instant.now());
         entity.setStatus(OrderStatus.WAITING_PAYMENT);
-
-        var client=new User();
-        client.setId(dto.getClient().getId());
-        entity.setClient(client);
         User user=authService.authenticated();
+        entity.setClient(user);
 
         entity.getItems().clear();
         for (OrderItemDTO orderItemDTO: dto.getItems()){

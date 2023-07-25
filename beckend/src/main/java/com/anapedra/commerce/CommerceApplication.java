@@ -74,7 +74,7 @@ public class CommerceApplication implements CommandLineRunner {
         User cl14=new User(14L,"Sandra Osca Sintra", Instant.parse("2017-10-21T08:00:00Z"),null,"7878965421","90216069092","sanfraosca@gmaol.com","$2a$10$eACCYoNOHEqXve8aIWT8Nu3PkMXWBaOxJ9aORUYzfMQCbVBIhZ8tG");
         clients.addAll(Arrays.asList(cl1, cl2, cl3, cl4,cl5,cl6,cl7,cl8,cl9,cl10,cl11,cl12,cl13,cl14));
         userRepository.saveAll(clients);
-        cl1.getRoles().add(role1);
+        cl1.getRoles().addAll(Arrays.asList(role1,role2));
         cl2.getRoles().add(role1);
         cl1.getRoles().add(role2);
         cl2.getRoles().add(role2);

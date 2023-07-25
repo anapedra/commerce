@@ -4,6 +4,7 @@ import com.anapedra.commerce.entities.Order;
 import com.anapedra.commerce.entities.OrderItem;
 import com.anapedra.commerce.entities.enums.OrderStatus;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class OrderDTO implements Serializable {
     private Double total;
     private ClientDTO client;
     private PaymentDTO payment;
+    @NotEmpty(message = "Deverá conter ao menos um item no pedido")
     private List<OrderItemDTO>items=new ArrayList<>();
 
     public OrderDTO(){

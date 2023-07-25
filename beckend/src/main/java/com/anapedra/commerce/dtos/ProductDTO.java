@@ -4,6 +4,7 @@ package com.anapedra.commerce.dtos;
 import com.anapedra.commerce.entities.Category;
 import com.anapedra.commerce.entities.Product;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ public class ProductDTO implements Serializable {
     private String fullDescription;
     private Double initialPrice;
     private String imgUrl;
+    @NotEmpty(message = "Deverá conter ao menos uma categoria")
     private List<CategoryDTO> categories=new ArrayList<>();
 
 
