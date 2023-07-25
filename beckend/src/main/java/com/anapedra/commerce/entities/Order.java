@@ -32,7 +32,7 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items=new HashSet<>();
 
-    public Order(Long id, LocalDate dateOrder, Instant moment, OrderStatus status,
+    public Order(Long id,Instant moment,LocalDate dateOrder, OrderStatus status,
                  Payment payment, User client) {
         this.id = id;
         this.dateOrder = dateOrder;
@@ -96,14 +96,12 @@ public class Order implements Serializable {
         }
     }
 
-
-
     public Set<OrderItem> getItems() {
         return items;
 
     }
     public List<Product> getProducts(){
-        return   items.stream().map(x->x.getProduct()).collect(Collectors.toList());
+        return items.stream().map(x->x.getProduct()).collect(Collectors.toList());
     }
 
     @Override
