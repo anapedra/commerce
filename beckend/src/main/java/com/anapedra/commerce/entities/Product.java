@@ -23,9 +23,9 @@ public class Product implements Serializable {
     private Instant momentRegistration;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant momentUpdate;
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 300)
     private String shortDescription;
-    @Lob
+    @Column(columnDefinition = "TEXT")
     private String fullDescription;
     private Double productCost;
     private Double initialPrice;

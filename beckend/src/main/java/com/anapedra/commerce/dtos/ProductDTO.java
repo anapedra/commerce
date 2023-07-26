@@ -4,6 +4,8 @@ package com.anapedra.commerce.dtos;
 import com.anapedra.commerce.entities.Category;
 import com.anapedra.commerce.entities.Product;
 
+import javax.persistence.Lob;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +16,10 @@ import java.util.Set;
 public class ProductDTO implements Serializable {
     private static final long serialVersionUID=1L;
     private Long id;
+    @NotBlank(message = "Campo obrigatório")
     private String shortDescription;
+    @Lob
+    @NotBlank(message = "Campo obrigatório")
     private String fullDescription;
     private Double initialPrice;
     private String imgUrl;

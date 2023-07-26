@@ -1,5 +1,6 @@
 package com.anapedra.commerce.resources;
 
+import com.anapedra.commerce.dtos.ProductCatalogDTO;
 import com.anapedra.commerce.dtos.ProductDTO;
 import com.anapedra.commerce.services.ProductService;
 import org.springframework.data.domain.Page;
@@ -23,23 +24,23 @@ public class ProductResource {
         }
 
 
-        @GetMapping
-         public ResponseEntity<Page<ProductDTO>> findAll(
+    @GetMapping
+    public ResponseEntity<Page<ProductCatalogDTO>> findAll(
             @RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
             @RequestParam(value = "descriptionCategory", defaultValue = "") String descriptionCategory,
             @RequestParam(value = "descriptionProduct", defaultValue = "") String descriptionProduct,
             Pageable pageable) {
-          Page<ProductDTO> list = service.findAllPaged(categoryId,descriptionCategory,descriptionProduct.trim() ,pageable);
-          return ResponseEntity.ok().body(list);
-        }
+        Page<ProductCatalogDTO> list = service.catalog(categoryId,descriptionCategory,descriptionProduct.trim() ,pageable);
+        return ResponseEntity.ok().body(list);
+    }
 
-        @GetMapping(value = "/{id}")
-        public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-            ProductDTO dto = service.findById(id);
-            return ResponseEntity.ok().body(dto);
-        }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ProductCatalogDTO> findProductCtalogById(@PathVariable Long id) {
+        ProductCatalogDTO dto = service.findById(id);
+        return ResponseEntity.ok().body(dto);
+    }
 
-        @PostMapping
+    @PostMapping
         public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto) {
             dto = service.insert(dto);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

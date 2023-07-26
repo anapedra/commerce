@@ -80,7 +80,16 @@ public class CommerceApplication implements CommandLineRunner {
         cl2.getRoles().add(role2);
         cl3.getRoles().add(role2);
         cl4.getRoles().add(role2);
-        clients.addAll(Arrays.asList(cl1,cl2,cl3,cl4));
+        cl5.getRoles().add(role2);
+        cl6.getRoles().add(role2);
+        cl7.getRoles().add(role2);
+        cl8.getRoles().add(role2);
+        cl10.getRoles().add(role2);
+        cl11.getRoles().add(role2);
+        cl12.getRoles().add(role2);
+        cl13.getRoles().add(role2);
+        cl14.getRoles().add(role2);
+        clients.addAll(Arrays.asList(cl1,cl2,cl3,cl4,cl5,cl6,cl7,cl8,cl9,cl10,cl11,cl12,cl13,cl14));
         userRepository.saveAll(clients);
 
         Category cat1=new Category(null,"Eletronic",Instant.parse("2000-03-21T08:00:00Z"),null);
@@ -112,7 +121,20 @@ public class CommerceApplication implements CommandLineRunner {
         p2.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
         p3.getCategories().addAll(Arrays.asList(cat1,cat2));
         p4.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
-        products.addAll(Arrays.asList(p1,p2,p3,p4));
+        p5.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p6.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p7.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
+        p8.getCategories().addAll(Arrays.asList(cat1,cat2));
+        p9.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
+        p10.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p11.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p12.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
+        p13.getCategories().addAll(Arrays.asList(cat1,cat2));
+        p14.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
+        p15.getCategories().addAll(Arrays.asList(cat1,cat3));
+        p16.getCategories().addAll(Arrays.asList(cat1,cat3,cat2));
+        p17.getCategories().addAll(Arrays.asList(cat1,cat3));
+        products.addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17));
         productRepository.saveAll(products);
 
         Order o1=new Order(1L,Instant.parse("2021-10-01T08:00:00Z"),LocalDate.parse("2021-10-01"),OrderStatus.PAID,null,cl1);

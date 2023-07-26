@@ -14,7 +14,7 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-   // @Column(columnDefinition = "TEXT")
+    @Column(length = 300)
     private String description;
     private Instant momentRegistration;
     private Instant momentUpdate;

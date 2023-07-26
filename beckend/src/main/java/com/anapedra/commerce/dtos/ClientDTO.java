@@ -1,14 +1,18 @@
 package com.anapedra.commerce.dtos;
 
 import com.anapedra.commerce.entities.User;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class ClientDTO implements Serializable {
     private static final long serialVersionUID=1L;
     private Long id;
+    @NotBlank(message = "Campo obrigatório")
     private String name;
+    @CPF
     private String cpf;
 
     public ClientDTO(){

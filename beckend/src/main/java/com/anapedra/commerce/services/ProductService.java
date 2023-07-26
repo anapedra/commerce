@@ -1,6 +1,7 @@
 package com.anapedra.commerce.services;
 
 import com.anapedra.commerce.dtos.CategoryDTO;
+import com.anapedra.commerce.dtos.ProductCatalogDTO;
 import com.anapedra.commerce.dtos.ProductDTO;
 import com.anapedra.commerce.entities.Category;
 import com.anapedra.commerce.entities.Product;
@@ -39,24 +40,19 @@ public class ProductService {
 
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(Long categoryId,String descriptionCategory, String descriptionProduct, Pageable pageable){
+    public Page<ProductCatalogDTO> catalog(Long categoryId, String descriptionCategory, String descriptionProduct, Pageable pageable){
         List<Category>categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
         Page<Product> page = repository.find(categories,descriptionCategory,descriptionProduct,pageable);
         repository.findProducts(page.stream().collect(Collectors.toList()));
-        return page.map(ProductDTO::new);
+        return page.map(ProductCatalogDTO::new);
     }
 
-@Transactional(readOnly = true)
-public Page<ProductDTO> findAll(Pageable pageable) {
-    Page<Product> page = repository.findAll(pageable);
-    return page.map(x -> new ProductDTO(x));
-}
 
     @Transactional(readOnly = true)
-    public ProductDTO findById(Long id) {
+    public ProductCatalogDTO findById(Long id) {
         Optional<Product> obj = repository.findById(id);
         Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-        return new ProductDTO(entity, entity.getCategories());
+        return new ProductCatalogDTO(entity, entity.getCategories());
 
     }
 
