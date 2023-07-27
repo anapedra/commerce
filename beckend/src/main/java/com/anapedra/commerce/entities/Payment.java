@@ -1,5 +1,6 @@
 package com.anapedra.commerce.entities;
 
+import com.anapedra.commerce.entities.enums.PaymentType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -19,13 +20,14 @@ public class Payment implements Serializable {
     @OneToOne
     @MapsId
     private Order order;
+    private Integer paymentType;
 
 
-    public Payment(Long id, Instant moment, Order order) {
+    public Payment(Long id, Instant moment, Order order,PaymentType paymentType) {
         this.id = id;
         this.moment = moment;
-
         this.order = order;
+        setPaymentType(paymentType);
     }
 
     public Payment() {
@@ -54,6 +56,16 @@ public class Payment implements Serializable {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public PaymentType getPaymentType() {
+        return PaymentType.valueOf(paymentType);
+    }
+
+    public void setPaymentType(PaymentType paymentType) {
+        if (paymentType!= null){
+            this. paymentType =  paymentType.getCode();
+        }
     }
 
     @Override

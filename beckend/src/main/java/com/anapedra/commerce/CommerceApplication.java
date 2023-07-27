@@ -2,6 +2,7 @@ package com.anapedra.commerce;
 
 import com.anapedra.commerce.entities.*;
 import com.anapedra.commerce.entities.enums.OrderStatus;
+import com.anapedra.commerce.entities.enums.PaymentType;
 import com.anapedra.commerce.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -292,25 +293,25 @@ public class CommerceApplication implements CommandLineRunner {
         orderRepository.saveAll(orders);
 
 
-        Payment pay1=new Payment(1L,Instant.parse("2021-10-02T08:00:00Z"),o1);
-        Payment pay2=new Payment(2L,Instant.parse("2020-11-12T08:00:00Z"),o2);
-        Payment pay3=new Payment(3L,Instant.parse("2022-01-09T12:00:00Z"),o3);
-        Payment pay4=new Payment(4L,Instant.parse("2021-10-02T08:00:00Z"),o4);
-        Payment pay5=new Payment(5L,Instant.parse("2020-11-12T08:00:00Z"),o5);
-        Payment pay6=new Payment(6L,Instant.parse("2022-01-09T12:00:00Z"),o6);
-        Payment pay7=new Payment(7L,Instant.parse("2021-10-02T08:00:00Z"),o7);
-        Payment pay8=new Payment(8L,Instant.parse("2020-11-12T08:00:00Z"),o8);
-        Payment pay9=new Payment(9L,Instant.parse("2022-01-09T12:00:00Z"),o9);
-        Payment pay10=new Payment(10L,Instant.parse("2021-10-02T08:00:00Z"),o10);
-        Payment pay11=new Payment(11L,Instant.parse("2020-11-12T08:00:00Z"),o12);
-        Payment pay12=new Payment(12L,Instant.parse("2022-01-09T12:00:00Z"),o13);
-        Payment pay13=new Payment(13L,Instant.parse("2021-10-02T08:00:00Z"),o14);
-        Payment pay14=new Payment(14L,Instant.parse("2020-11-12T08:00:00Z"),o15);
-        Payment pay15=new Payment(15L,Instant.parse("2022-01-09T12:00:00Z"),o16);
-        Payment pay16=new Payment(16L,Instant.parse("2021-10-02T08:00:00Z"),o17);
-        Payment pay17=new Payment(17L,Instant.parse("2020-11-12T08:00:00Z"),o18);
-        Payment pay18=new Payment(17L,Instant.parse("2022-01-09T12:00:00Z"),o19);
-        Payment pay19=new Payment(19L,Instant.parse("2021-10-02T08:00:00Z"),o20);
+        Payment pay1=new Payment(1L,Instant.parse("2021-10-02T08:00:00Z"),o1, PaymentType.DEBIT_CARD);
+        Payment pay2=new Payment(2L,Instant.parse("2020-11-12T08:00:00Z"),o2,PaymentType.PIX);
+        Payment pay3=new Payment(3L,Instant.parse("2022-01-09T12:00:00Z"),o3,PaymentType.DEBIT_CARD);
+        Payment pay4=new Payment(4L,Instant.parse("2021-10-02T08:00:00Z"),o4,PaymentType.PIX);
+        Payment pay5=new Payment(5L,Instant.parse("2020-11-12T08:00:00Z"),o5,PaymentType.PIX);
+        Payment pay6=new Payment(6L,Instant.parse("2022-01-09T12:00:00Z"),o6,PaymentType.PIX);
+        Payment pay7=new Payment(7L,Instant.parse("2021-10-02T08:00:00Z"),o7,PaymentType.PIX);
+        Payment pay8=new Payment(8L,Instant.parse("2020-11-12T08:00:00Z"),o8,PaymentType.PIX);
+        Payment pay9=new Payment(9L,Instant.parse("2022-01-09T12:00:00Z"),o9,PaymentType.PIX);
+        Payment pay10=new Payment(10L,Instant.parse("2021-10-02T08:00:00Z"),o10,PaymentType.PIX);
+        Payment pay11=new Payment(11L,Instant.parse("2020-11-12T08:00:00Z"),o12,PaymentType.PIX);
+        Payment pay12=new Payment(12L,Instant.parse("2022-01-09T12:00:00Z"),o13,PaymentType.PIX);
+        Payment pay13=new Payment(13L,Instant.parse("2021-10-02T08:00:00Z"),o14,PaymentType.PIX);
+        Payment pay14=new Payment(14L,Instant.parse("2020-11-12T08:00:00Z"),o15,PaymentType.PIX);
+        Payment pay15=new Payment(15L,Instant.parse("2022-01-09T12:00:00Z"),o16,PaymentType.PIX);
+        Payment pay16=new Payment(16L,Instant.parse("2021-10-02T08:00:00Z"),o17,PaymentType.PIX);
+        Payment pay17=new Payment(17L,Instant.parse("2020-11-12T08:00:00Z"),o18,PaymentType.PIX);
+        Payment pay18=new Payment(17L,Instant.parse("2022-01-09T12:00:00Z"),o19,PaymentType.PIX);
+        Payment pay19=new Payment(19L,Instant.parse("2021-10-02T08:00:00Z"),o20,PaymentType.PIX);
         payments.addAll(Arrays.asList(pay1,pay2,pay3,pay4,pay5,pay6,pay7,pay8,pay8,pay10,pay11,
                 pay12,pay13,pay14,pay15,pay16,pay17,pay18,pay19));
         paymentRepository.saveAll(payments);
