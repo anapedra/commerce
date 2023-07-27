@@ -1,8 +1,10 @@
 package com.anapedra.commerce;
 
 import com.anapedra.commerce.entities.*;
+import com.anapedra.commerce.entities.enums.AddressType;
 import com.anapedra.commerce.entities.enums.OrderStatus;
 import com.anapedra.commerce.entities.enums.PaymentType;
+import com.anapedra.commerce.entities.enums.PhoneType;
 import com.anapedra.commerce.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,13 +26,17 @@ public class CommerceApplication implements CommandLineRunner {
     private final PaymentRepository paymentRepository;
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final AddressRepository addressRepository;
+    private final PhonesRepository phonesRepository;
     public CommerceApplication(UserRepository userRepository,
                                RoleRepository roleRepository,
                                ProductRepository productRepository,
                                CategoryRepository categoryRepository,
                                PaymentRepository paymentRepository,
                                OrderRepository orderRepository,
-                               OrderItemRepository orderItemRepository) {
+                               OrderItemRepository orderItemRepository,
+                               AddressRepository addressRepository,
+                               PhonesRepository phonesRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.productRepository = productRepository;
@@ -38,6 +44,8 @@ public class CommerceApplication implements CommandLineRunner {
         this.paymentRepository = paymentRepository;
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
+        this.addressRepository = addressRepository;
+        this.phonesRepository = phonesRepository;
     }
 
     public static void main(String[] args) {
@@ -53,6 +61,8 @@ public class CommerceApplication implements CommandLineRunner {
         List<Payment>payments=new ArrayList<>();
         List<Order>orders=new ArrayList<>();
         List<OrderItem>orderItems=new ArrayList<>();
+        List<Address>addresses=new ArrayList<>();
+        List<Phones>phones=new ArrayList<>();
 
 
         Role role1=new Role(1L,"ROLE_ADMIN");
@@ -315,6 +325,17 @@ public class CommerceApplication implements CommandLineRunner {
         payments.addAll(Arrays.asList(pay1,pay2,pay3,pay4,pay5,pay6,pay7,pay8,pay8,pay10,pay11,
                 pay12,pay13,pay14,pay15,pay16,pay17,pay18,pay19));
         paymentRepository.saveAll(payments);
+
+
+        Address add1=new Address(1L, AddressType.SHIPPING_ADDRESS,"Rua San Maria",205,"000346","São Mateus","São paulo","SP","BR","Proximo ao terminal de ônibos",cl1);
+        addresses.addAll(Arrays.asList(add1));
+        addressRepository.saveAll(addresses);
+
+        Phones ph1=new Phones(1L,"55","61","99588879","Horário comercial", PhoneType.MOBILE_PHONEY,cl1);
+        phones.addAll(Arrays.asList(ph1));
+        phonesRepository.saveAll(phones);
+
+
 
 
 

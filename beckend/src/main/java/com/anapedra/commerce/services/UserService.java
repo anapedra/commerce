@@ -43,7 +43,6 @@ public class UserService implements UserDetailsService {
 
     }
 
-
     @Transactional(readOnly = true)
     public Page<UserDTO> findAll(Pageable pageable){
         Page<User> list=userRepository.findAll(pageable);
@@ -56,7 +55,7 @@ public class UserService implements UserDetailsService {
          authService.validateSelfOrAdmin(id);
         User entity=obj.orElseThrow(
                 ()-> new ResourceNotFoundException("Id "+id+" not found"));
-        return new UserDTO(entity);
+        return new UserDTO(entity,entity.getAddresses(),entity.getRoles(),entity.getPhones());
     }
 
     @Transactional

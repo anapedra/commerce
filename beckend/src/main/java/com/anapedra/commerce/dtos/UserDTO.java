@@ -1,15 +1,14 @@
 package com.anapedra.commerce.dtos;
 
-import com.anapedra.commerce.entities.User;
+import com.anapedra.commerce.entities.*;
+import org.apache.catalina.LifecycleState;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class UserDTO implements Serializable {
     private static final long serialVersionUID=1L;
@@ -26,6 +25,8 @@ public class UserDTO implements Serializable {
     @CPF
     private String cpf;
     private Set<RoleDTO>roles=new HashSet<>();
+    private List<AddressDTO>addresses=new ArrayList<>();
+    private List<PhonesDTO>phones=new ArrayList<>();
 
     public UserDTO() {
 
@@ -57,16 +58,11 @@ public class UserDTO implements Serializable {
 
     }
 
-    public UserDTO(Long id, String name, Instant momentRegistration, Instant momentUpdate, String mainPhone, String registrationEmail, String cpf) {
-        this.id = id;
-        this.name = name;
-        this.momentRegistration = momentRegistration;
-        this.momentUpdate = momentUpdate;
-        this.mainPhone = mainPhone;
-        this.registrationEmail = registrationEmail;
-        this.cpf=cpf;
-
-
+    public UserDTO(User entity, List<Address> addresses,Set<Role> roles,List<Phones>phones){
+        this(entity);
+        entity.getAddresses().forEach(address -> this.addresses.add(new AddressDTO(address)));
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
+        entity.getPhones().forEach(phones1 -> this.phones.add(new PhonesDTO(phones1)));
     }
 
     public Long getId() {
@@ -135,6 +131,14 @@ public class UserDTO implements Serializable {
 
     public Set<RoleDTO> getRoles() {
         return roles;
+    }
+
+    public List<AddressDTO> getAddresses() {
+        return addresses;
+    }
+
+    public List<PhonesDTO> getPhones() {
+        return phones;
     }
 
     @Override

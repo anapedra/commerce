@@ -32,6 +32,10 @@ public class User implements UserDetails,Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles=new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private List<Address>addresses=new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Phones>phones=new ArrayList<>();
 
 
     public User(Long id, String name, Instant momentRegistration,
@@ -133,6 +137,14 @@ public class User implements UserDetails,Serializable {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    public List<Phones> getPhones() {
+        return phones;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
     @Override
