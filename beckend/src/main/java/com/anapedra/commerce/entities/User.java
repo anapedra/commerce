@@ -1,5 +1,6 @@
 package com.anapedra.commerce.entities;
 
+import com.anapedra.commerce.entities.enums.AddressType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -151,6 +152,67 @@ public class User implements UserDetails,Serializable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
                 .collect(Collectors.toList());
+    }
+
+    public Long getShippingAddress(){
+        AddressType add=AddressType.SHIPPING_ADDRESS;
+        Long addressId=0L;
+        for (Address address: addresses){
+            if (address.getAddressType() == add){
+            addressId=address.getId();
+            }
+        }
+        return addressId;
+
+    }
+    public String getAddressCountry(){
+        AddressType add=AddressType.SHIPPING_ADDRESS;
+        String country="";
+        for (Address address: addresses){
+            if (address.getAddressType() == add){
+            country=address.getCountry();
+            }
+
+        }
+        return country;
+
+    }
+
+    public String getAddressState(){
+        AddressType add=AddressType.SHIPPING_ADDRESS;
+        String state="";
+        for (Address address: addresses){
+            if (address.getAddressType() == add){
+                state=address.getState();
+            }
+        }
+        return state;
+
+    }
+
+    public Integer getAddressNumber(){
+        AddressType add=AddressType.SHIPPING_ADDRESS;
+        int number=0;
+        for (Address address: addresses){
+            if (address.getAddressType() == add){
+                number=address.getNumber();
+            }
+        }
+        return number;
+
+    }
+
+
+    public String getAddressCep(){
+        AddressType add=AddressType.SHIPPING_ADDRESS;
+        String cep="";
+        for (Address address: addresses){
+            if (address.getAddressType() == add){
+                cep=address.getCep();
+            }
+        }
+        return cep;
+
     }
 
 

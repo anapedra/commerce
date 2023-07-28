@@ -26,6 +26,8 @@ public class Order implements Serializable {
     private Integer status;
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private Payment payment;
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    private Ship ship;
     @ManyToOne
     @JoinColumn(name = "clientId")
     private User client;
@@ -33,12 +35,13 @@ public class Order implements Serializable {
     private Set<OrderItem> items=new HashSet<>();
 
     public Order(Long id,Instant moment,LocalDate dateOrder, OrderStatus status,
-                 Payment payment, User client) {
+                 Payment payment,Ship ship ,User client) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.moment = moment;
-         setStatus(status);
+        setStatus(status);
         this.payment = payment;
+        this.ship=ship;
         this.client = client;
     }
 
@@ -95,6 +98,14 @@ public class Order implements Serializable {
 
     public User getClient() {
         return client;
+    }
+
+    public Ship getShip() {
+        return ship;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
     }
 
     public void setClient(User client) {

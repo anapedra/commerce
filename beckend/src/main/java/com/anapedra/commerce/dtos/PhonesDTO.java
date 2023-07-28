@@ -10,26 +10,27 @@ public class PhonesDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Long id;
+    private Long userId;
+    private String timeAvailability;
+    private PhoneType phoneType;
     private String DDI;
     private String DDD;
     private String phone;
-    private String timeAvailability;
-    private PhoneType phoneType;
-    private Long userId;
 
     public PhonesDTO(){
 
     }
 
-    public PhonesDTO(Long id, String DDI, String DDD, String phone, String timeAvailability, PhoneType phoneType,Long userId) {
+    public PhonesDTO(Long id, Long userId, String timeAvailability, PhoneType phoneType, String DDI, String DDD, String phone) {
         this.id = id;
+        this.userId = userId;
+        this.timeAvailability = timeAvailability;
+        this.phoneType = phoneType;
         this.DDI = DDI;
         this.DDD = DDD;
         this.phone = phone;
-        this.timeAvailability = timeAvailability;
-        this.phoneType = phoneType;
-        this.userId=userId;
     }
+
     public PhonesDTO(Phones entity) {
         id = entity.getId();
         DDI = entity.getDDI();
@@ -46,6 +47,30 @@ public class PhonesDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getTimeAvailability() {
+        return timeAvailability;
+    }
+
+    public void setTimeAvailability(String timeAvailability) {
+        this.timeAvailability = timeAvailability;
+    }
+
+    public PhoneType getPhoneType() {
+        return phoneType;
+    }
+
+    public void setPhoneType(PhoneType phoneType) {
+        this.phoneType = phoneType;
     }
 
     public String getDDI() {
@@ -70,30 +95,6 @@ public class PhonesDTO implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getTimeAvailability() {
-        return timeAvailability;
-    }
-
-    public void setTimeAvailability(String timeAvailability) {
-        this.timeAvailability = timeAvailability;
-    }
-
-    public PhoneType getPhoneType() {
-        return phoneType;
-    }
-
-    public void setPhoneType(PhoneType phoneType) {
-        this.phoneType = phoneType;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     @Override

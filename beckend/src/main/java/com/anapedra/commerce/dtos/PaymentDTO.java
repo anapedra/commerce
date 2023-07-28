@@ -1,6 +1,7 @@
 package com.anapedra.commerce.dtos;
 
 import com.anapedra.commerce.entities.Payment;
+import com.anapedra.commerce.entities.enums.OrderStatus;
 import com.anapedra.commerce.entities.enums.PaymentType;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class PaymentDTO implements Serializable {
     private Long id;
     private Instant moment;
     private PaymentType paymentType;
+    private Double totalPayment;
 
     public PaymentDTO() {
 
@@ -26,6 +28,7 @@ public class PaymentDTO implements Serializable {
         id = entity.getId();
         moment = entity.getMoment();
         paymentType=entity.getPaymentType();
+        totalPayment= (entity.getOrder().getShip()==null) ? entity.getOrder().getTotal() : entity.getTotalPayment();
     }
 
 
@@ -39,5 +42,9 @@ public class PaymentDTO implements Serializable {
 
     public PaymentType getPaymentType() {
         return paymentType;
+    }
+
+    public Double getTotalPayment() {
+        return totalPayment;
     }
 }

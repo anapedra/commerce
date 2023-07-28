@@ -23,6 +23,7 @@ public class OrderDTO implements Serializable {
     private Double total;
     private ClientDTO client;
     private PaymentDTO payment;
+    private ShipDTO ship;
     @NotEmpty(message = "Deverá conter ao menos um item no pedido")
     private List<OrderItemDTO>items=new ArrayList<>();
 
@@ -30,21 +31,23 @@ public class OrderDTO implements Serializable {
 
     }
 
-    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment,LocalDate dateOrder) {
+    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment,LocalDate dateOrder, ShipDTO ship) {
         this.id = id;
         this.moment = moment;
         this.status = status;
         this.client = client;
         this.payment = payment;
         this.dateOrder=dateOrder;
+        this.ship=ship;
     }
 
     public OrderDTO(Order entity) {
         id = entity.getId();
         moment = entity.getMoment();
-        status = entity.getStatus();
+        status = (entity.getPayment()==null) ? OrderStatus.WAITING_PAYMENT : entity.getStatus();                             ;
         client = new ClientDTO(entity.getClient());
         payment = (entity.getPayment()==null) ? null : new PaymentDTO(entity.getPayment());
+        ship=(entity.getShip()==null) ? null : new ShipDTO(entity.getShip());
         totalProduct = entity.getQuantityProduct();
         dateOrder=entity.getDateOrder();
         total = entity.getTotal();
@@ -95,6 +98,14 @@ public class OrderDTO implements Serializable {
 
     public void setPayment(PaymentDTO payment) {
         this.payment = payment;
+    }
+
+    public ShipDTO getShip() {
+        return ship;
+    }
+
+    public void setShip(ShipDTO ship) {
+        this.ship = ship;
     }
 
     public Integer getTotalProduct() {

@@ -28,6 +28,8 @@ public class CommerceApplication implements CommandLineRunner {
     private final OrderItemRepository orderItemRepository;
     private final AddressRepository addressRepository;
     private final PhonesRepository phonesRepository;
+    private final ShippingPriceTableRepository shippingPriceTableRepository;
+    private final ShipRepository shipRepository;
     public CommerceApplication(UserRepository userRepository,
                                RoleRepository roleRepository,
                                ProductRepository productRepository,
@@ -36,7 +38,9 @@ public class CommerceApplication implements CommandLineRunner {
                                OrderRepository orderRepository,
                                OrderItemRepository orderItemRepository,
                                AddressRepository addressRepository,
-                               PhonesRepository phonesRepository) {
+                               PhonesRepository phonesRepository,
+                               ShippingPriceTableRepository shippingPriceTableRepository,
+                               ShipRepository shipRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.productRepository = productRepository;
@@ -46,6 +50,8 @@ public class CommerceApplication implements CommandLineRunner {
         this.orderItemRepository = orderItemRepository;
         this.addressRepository = addressRepository;
         this.phonesRepository = phonesRepository;
+        this.shippingPriceTableRepository = shippingPriceTableRepository;
+        this.shipRepository = shipRepository;
     }
 
     public static void main(String[] args) {
@@ -63,6 +69,8 @@ public class CommerceApplication implements CommandLineRunner {
         List<OrderItem>orderItems=new ArrayList<>();
         List<Address>addresses=new ArrayList<>();
         List<Phones>phones=new ArrayList<>();
+        List<ShippingPriceTable>shippingPriceTables=new ArrayList<>();
+        List<Ship>ships=new ArrayList<>();
 
 
         Role role1=new Role(1L,"ROLE_ADMIN");
@@ -100,7 +108,8 @@ public class CommerceApplication implements CommandLineRunner {
         cl12.getRoles().add(role2);
         cl13.getRoles().add(role2);
         cl14.getRoles().add(role2);
-        clients.addAll(Arrays.asList(cl1,cl2,cl3,cl4,cl5,cl6,cl7,cl8,cl9,cl10,cl11,cl12,cl13,cl14));
+        clients.addAll(Arrays.asList(cl1,cl2,cl3,cl4,cl5,cl6,cl7,cl8,cl9,
+                cl10,cl11,cl12,cl13,cl14));
         userRepository.saveAll(clients);
 
         Category cat1=new Category(null,"Eletronic",Instant.parse("2000-03-21T08:00:00Z"),null);
@@ -148,29 +157,29 @@ public class CommerceApplication implements CommandLineRunner {
         products.addAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17));
         productRepository.saveAll(products);
 
-        Order o1=new Order(1L,Instant.parse("2021-10-01T08:00:00Z"),LocalDate.parse("2021-10-01"),OrderStatus.PAID,null,cl1);
-        Order o2=new Order(2L,Instant.parse("2020-11-09T08:00:00Z"),LocalDate.parse("2020-11-09"),OrderStatus.SHIPPED,null,cl2);
-        Order o3=new Order(3L,Instant.parse("2022-01-09T08:00:00Z"),LocalDate.parse("2022-01-09"),OrderStatus.PAID,null,cl5);
-        Order o4=new Order(4L,Instant.parse("2023-05-25T08:00:00Z"),LocalDate.parse("2023-05-25"),OrderStatus.PAID,null,cl6);
-        Order o5=new Order(5L,Instant.parse("2020-11-01T08:00:00Z"),LocalDate.parse("2020-11-01"),OrderStatus.PAID,null,cl10);
-        Order o6=new Order(6L,Instant.parse("2020-11-16T08:00:00Z"),LocalDate.parse("2020-11-16"),OrderStatus.PAID,null,cl8);
-        Order o7=new Order(7L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"), OrderStatus.PAID,null,cl11);
-        Order o8=new Order(8L,Instant.parse("2022-11-18T08:00:00Z"),LocalDate.parse("2022-11-18"),OrderStatus.PAID,null,cl1);
-        Order o9=new Order(9L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"),OrderStatus.PAID,null,cl3);
-        Order o10 =new Order(10L,Instant.parse("2021-11-01T08:00:00Z"),LocalDate.parse("2021-11-01"),OrderStatus.PAID,null,cl10);
-        Order o12=new Order(12L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"),OrderStatus.PAID,null,cl2);
-        Order o13=new Order(13L,Instant.parse("2021-10-21T08:00:00Z"),LocalDate.parse("2021-10-21"),OrderStatus.PAID,null,cl9);
-        Order o14=new Order(14L,Instant.parse("2023-03-05T08:00:00Z"),LocalDate.parse("2023-03-05"),OrderStatus.PAID,null,cl9);
-        Order o15=new Order(15L,Instant.parse("2023-04-10T08:00:00Z"),LocalDate.parse("2023-04-10"),OrderStatus.PAID,null,cl1);
-        Order o16=new Order(16L,Instant.parse("2021-12-22T08:00:00Z"),LocalDate.parse("2021-12-22"),OrderStatus.PAID,null,cl11);
-        Order o17=new Order(17L,Instant.parse("2022-01-07T08:00:00Z"),LocalDate.parse("2022-01-07"),OrderStatus.PAID,null,cl9);
-        Order o18=new Order(18L,Instant.parse("2019-11-09T08:00:00Z"),LocalDate.parse("2019-11-09"),OrderStatus.PAID,null,cl1);
-        Order o19=new Order(19L,Instant.parse("2018-12-01T08:00:00Z"),LocalDate.parse("2018-12-01"),OrderStatus.WAITING_PAYMENT,null,cl4);
-        Order o20=new Order(20L,Instant.parse("2023-05-01T08:00:00Z"),LocalDate.parse("2023-05-01"),OrderStatus.WAITING_PAYMENT,null,cl6);
-        Order o21=new Order(21L,Instant.parse("2023-01-01T08:00:00Z"),LocalDate.parse("2023-01-01"),OrderStatus.WAITING_PAYMENT,null,cl1);
-        Order o22=new Order(22L,Instant.parse("2015-11-01T08:00:00Z"),LocalDate.parse("2012-11-01"),OrderStatus.WAITING_PAYMENT,null,cl1);
-        Order o23=new Order(23L,Instant.parse("2012-11-01T08:00:00Z"),LocalDate.parse("2000-11-01"),OrderStatus.WAITING_PAYMENT,null,cl1);
-        Order o24=new Order(24L,Instant.parse("2011-11-01T08:00:00Z"),LocalDate.parse("2011-11-01"),OrderStatus.WAITING_PAYMENT,null,cl7);
+        Order o1=new Order(1L,Instant.parse("2021-10-01T08:00:00Z"),LocalDate.parse("2021-10-01"),OrderStatus.PAID,null,null,cl1);
+        Order o2=new Order(2L,Instant.parse("2020-11-09T08:00:00Z"),LocalDate.parse("2020-11-09"),OrderStatus.SHIPPED,null,null,cl2);
+        Order o3=new Order(3L,Instant.parse("2022-01-09T08:00:00Z"),LocalDate.parse("2022-01-09"),OrderStatus.PAID,null,null,cl5);
+        Order o4=new Order(4L,Instant.parse("2023-05-25T08:00:00Z"),LocalDate.parse("2023-05-25"),OrderStatus.PAID,null,null,cl6);
+        Order o5=new Order(5L,Instant.parse("2020-11-01T08:00:00Z"),LocalDate.parse("2020-11-01"),OrderStatus.PAID,null,null,cl10);
+        Order o6=new Order(6L,Instant.parse("2020-11-16T08:00:00Z"),LocalDate.parse("2020-11-16"),OrderStatus.PAID,null,null,cl8);
+        Order o7=new Order(7L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"), OrderStatus.PAID,null,null,cl11);
+        Order o8=new Order(8L,Instant.parse("2022-11-18T08:00:00Z"),LocalDate.parse("2022-11-18"),OrderStatus.PAID,null,null,cl1);
+        Order o9=new Order(9L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"),OrderStatus.PAID,null,null,cl3);
+        Order o10 =new Order(10L,Instant.parse("2021-11-01T08:00:00Z"),LocalDate.parse("2021-11-01"),OrderStatus.PAID,null,null,cl10);
+        Order o12=new Order(12L,Instant.parse("2022-11-01T08:00:00Z"),LocalDate.parse("2022-11-01"),OrderStatus.PAID,null,null,cl2);
+        Order o13=new Order(13L,Instant.parse("2021-10-21T08:00:00Z"),LocalDate.parse("2021-10-21"),OrderStatus.PAID,null,null,cl9);
+        Order o14=new Order(14L,Instant.parse("2023-03-05T08:00:00Z"),LocalDate.parse("2023-03-05"),OrderStatus.PAID,null,null,cl9);
+        Order o15=new Order(15L,Instant.parse("2023-04-10T08:00:00Z"),LocalDate.parse("2023-04-10"),OrderStatus.PAID,null,null,cl1);
+        Order o16=new Order(16L,Instant.parse("2021-12-22T08:00:00Z"),LocalDate.parse("2021-12-22"),OrderStatus.PAID,null,null,cl11);
+        Order o17=new Order(17L,Instant.parse("2022-01-07T08:00:00Z"),LocalDate.parse("2022-01-07"),OrderStatus.PAID,null,null,cl9);
+        Order o18=new Order(18L,Instant.parse("2019-11-09T08:00:00Z"),LocalDate.parse("2019-11-09"),OrderStatus.PAID,null,null,cl1);
+        Order o19=new Order(19L,Instant.parse("2018-12-01T08:00:00Z"),LocalDate.parse("2018-12-01"),OrderStatus.WAITING_PAYMENT,null,null,cl4);
+        Order o20=new Order(20L,Instant.parse("2023-05-01T08:00:00Z"),LocalDate.parse("2023-05-01"),OrderStatus.WAITING_PAYMENT,null,null,cl6);
+        Order o21=new Order(21L,Instant.parse("2023-01-01T08:00:00Z"),LocalDate.parse("2023-01-01"),OrderStatus.WAITING_PAYMENT,null,null,cl1);
+        Order o22=new Order(22L,Instant.parse("2015-11-01T08:00:00Z"),LocalDate.parse("2012-11-01"),OrderStatus.WAITING_PAYMENT,null,null,cl1);
+        Order o23=new Order(23L,Instant.parse("2012-11-01T08:00:00Z"),LocalDate.parse("2000-11-01"),OrderStatus.WAITING_PAYMENT,null,null,cl1);
+        Order o24=new Order(24L,Instant.parse("2011-11-01T08:00:00Z"),LocalDate.parse("2011-11-01"),OrderStatus.WAITING_PAYMENT,null,null,cl7);
         orders.addAll(Arrays.asList(o1,o2,o3,o4,o5,o6,o7,o8,o9,o10,o12,o13,o14,o15,o16,o17,o18,o19,o20,o21,o22,o22,o23,o24));
         orderRepository.saveAll(orders);
 
@@ -334,6 +343,15 @@ public class CommerceApplication implements CommandLineRunner {
         Phones ph1=new Phones(1L,"55","61","99588879","Horário comercial", PhoneType.MOBILE_PHONEY,cl1);
         phones.addAll(Arrays.asList(ph1));
         phonesRepository.saveAll(phones);
+
+        ShippingPriceTable tbr=new ShippingPriceTable(1L,"Tabela de preço minimo de entrga, dentro do Brasil",0.02,0.04);
+        ShippingPriceTable tex=new ShippingPriceTable(2L,"Tabela de preços para fora do Brasil,valor á ser calculado pela administração",null,null);
+        shippingPriceTables.addAll(Arrays.asList(tbr,tex));
+        shippingPriceTableRepository.saveAll(shippingPriceTables);
+
+        Ship sp1=new Ship(1L,o1,tbr);
+        ships.addAll(Arrays.asList(sp1));
+        shipRepository.saveAll(ships);
 
 
 

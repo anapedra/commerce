@@ -114,7 +114,7 @@ public class OrderService {
 
         entity.setDateOrder(LocalDate.now());
         entity.setMoment(Instant.now());
-        entity.setStatus(OrderStatus.WAITING_PAYMENT);
+        entity.setStatus(dto.getStatus());
         User user=authService.authenticated();
         entity.setClient(user);
 
