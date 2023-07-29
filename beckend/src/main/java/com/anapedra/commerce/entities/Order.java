@@ -28,6 +28,8 @@ public class Order implements Serializable {
     private Payment payment;
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private Ship ship;
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    private DiscountOnOrder discount;
     @ManyToOne
     @JoinColumn(name = "clientId")
     private User client;
@@ -35,13 +37,14 @@ public class Order implements Serializable {
     private Set<OrderItem> items=new HashSet<>();
 
     public Order(Long id,Instant moment,LocalDate dateOrder, OrderStatus status,
-                 Payment payment,Ship ship ,User client) {
+                 Payment payment,Ship ship,DiscountOnOrder discount ,User client) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.moment = moment;
         setStatus(status);
         this.payment = payment;
         this.ship=ship;
+        this.discount=discount;
         this.client = client;
     }
 
@@ -106,6 +109,14 @@ public class Order implements Serializable {
 
     public void setShip(Ship ship) {
         this.ship = ship;
+    }
+
+    public DiscountOnOrder getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(DiscountOnOrder discount) {
+        this.discount = discount;
     }
 
     public void setClient(User client) {

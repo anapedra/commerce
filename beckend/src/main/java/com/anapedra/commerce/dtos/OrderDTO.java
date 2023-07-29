@@ -21,9 +21,10 @@ public class OrderDTO implements Serializable {
     private Integer totalProduct;
     private LocalDate dateOrder;
     private Double total;
-    private ClientDTO client;
     private PaymentDTO payment;
     private ShipDTO ship;
+    private DiscountOnOrderDTO discount;
+    private ClientDTO client;
     @NotEmpty(message = "Deverá conter ao menos um item no pedido")
     private List<OrderItemDTO>items=new ArrayList<>();
 
@@ -31,7 +32,7 @@ public class OrderDTO implements Serializable {
 
     }
 
-    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment,LocalDate dateOrder, ShipDTO ship) {
+    public OrderDTO(Long id, Instant moment, OrderStatus status, ClientDTO client, PaymentDTO payment,LocalDate dateOrder, ShipDTO ship,DiscountOnOrderDTO discount) {
         this.id = id;
         this.moment = moment;
         this.status = status;
@@ -39,6 +40,7 @@ public class OrderDTO implements Serializable {
         this.payment = payment;
         this.dateOrder=dateOrder;
         this.ship=ship;
+        this.discount=discount;
     }
 
     public OrderDTO(Order entity) {
@@ -48,6 +50,7 @@ public class OrderDTO implements Serializable {
         client = new ClientDTO(entity.getClient());
         payment = (entity.getPayment()==null) ? null : new PaymentDTO(entity.getPayment());
         ship=(entity.getShip()==null) ? null : new ShipDTO(entity.getShip());
+        discount=(entity.getDiscount()==null) ? null : new DiscountOnOrderDTO(entity.getDiscount());
         totalProduct = entity.getQuantityProduct();
         dateOrder=entity.getDateOrder();
         total = entity.getTotal();
@@ -106,6 +109,14 @@ public class OrderDTO implements Serializable {
 
     public void setShip(ShipDTO ship) {
         this.ship = ship;
+    }
+
+    public DiscountOnOrderDTO getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(DiscountOnOrderDTO discount) {
+        this.discount = discount;
     }
 
     public Integer getTotalProduct() {

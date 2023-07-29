@@ -35,7 +35,8 @@ public class Payment implements Serializable {
     }
 
     public Double getTotalPayment(){
-        return order.getTotal()+order.getShip().getShipCost();
+        return order.getTotal()-order.getDiscount().getDiscount()+ (order.getShip().getShipCost());
+
     }
 
     public Long getId() {

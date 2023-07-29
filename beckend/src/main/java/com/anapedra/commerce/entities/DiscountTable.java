@@ -1,38 +1,38 @@
-package com.anapedra.commerce.dtos;
+package com.anapedra.commerce.entities;
 
-import com.anapedra.commerce.entities.Category;
-
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.*;
+import java.util.Objects;
 
-public class CategoryDTO implements Serializable {
+@Entity
+@Table(name = "tb_discount_table")
+public class DiscountTable implements Serializable {
     private static final long serialVersionUID=1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Campo obrigatório")
+    @Column(length = 300)
     private String description;
     private Instant momentRegistration;
     private Instant momentUpdate;
+    private Double minDiscountPercentage;
+    private Double maxDiscountPercentage;
 
-
-    public CategoryDTO() {
-    }
-
-    public CategoryDTO(Long id, String description, Instant momentRegistration, Instant momentUpdate) {
+    public DiscountTable(Long id, String description, Instant momentRegistration,
+                         Instant momentUpdate, Double minDiscountPercentage, Double maxDiscountPercentage) {
         this.id = id;
         this.description = description;
         this.momentRegistration = momentRegistration;
         this.momentUpdate = momentUpdate;
+        this.minDiscountPercentage = minDiscountPercentage;
+        this.maxDiscountPercentage = maxDiscountPercentage;
     }
 
-    public CategoryDTO(Category entity) {
-     id=entity.getId();
-     description= entity.getDescription();
-     momentRegistration=entity.getMomentRegistration();
-     momentUpdate= entity.getMomentUpdate();
-    }
+    public DiscountTable() {
 
+    }
 
     public Long getId() {
         return id;
@@ -66,11 +66,27 @@ public class CategoryDTO implements Serializable {
         this.momentUpdate = momentUpdate;
     }
 
+    public Double getMinDiscountPercentage() {
+        return minDiscountPercentage;
+    }
+
+    public void setMinDiscountPercentage(Double minDiscountPercentage) {
+        this.minDiscountPercentage = minDiscountPercentage;
+    }
+
+    public Double getMaxDiscountPercentage() {
+        return maxDiscountPercentage;
+    }
+
+    public void setMaxDiscountPercentage(Double maxDiscountPercentage) {
+        this.maxDiscountPercentage = maxDiscountPercentage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryDTO)) return false;
-        CategoryDTO that = (CategoryDTO) o;
+        if (!(o instanceof DiscountTable)) return false;
+        DiscountTable that = (DiscountTable) o;
         return Objects.equals(id, that.id);
     }
 
