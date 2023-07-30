@@ -21,6 +21,7 @@ public class ShipDTO implements Serializable {
     private String cepShipAddress;
     private Integer numberShipAddress;
 
+
     public ShipDTO(Ship entity){
      expectedShipDate=entity.getExpectedShipDate();
      shipCost= entity.getShipCost();

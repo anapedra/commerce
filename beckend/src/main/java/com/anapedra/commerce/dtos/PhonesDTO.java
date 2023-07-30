@@ -3,6 +3,8 @@ package com.anapedra.commerce.dtos;
 import com.anapedra.commerce.entities.Phones;
 import com.anapedra.commerce.entities.enums.PhoneType;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,11 +12,16 @@ public class PhonesDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Long id;
+    @NotNull(message = "A indentificação do usuario é oribatoria")
     private Long userId;
+    @NotBlank(message = "Campo obrigatório")
     private String timeAvailability;
     private PhoneType phoneType;
+    @NotBlank(message = "Campo obrigatório")
     private String DDI;
+    @NotBlank(message = "Campo obrigatório")
     private String DDD;
+    @NotBlank(message = "Campo obrigatório")
     private String phone;
 
     public PhonesDTO(){

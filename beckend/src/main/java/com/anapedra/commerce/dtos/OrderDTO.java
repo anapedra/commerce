@@ -50,7 +50,7 @@ public class OrderDTO implements Serializable {
         client = new ClientDTO(entity.getClient());
         payment = (entity.getPayment()==null) ? null : new PaymentDTO(entity.getPayment());
         ship=(entity.getShip()==null) ? null : new ShipDTO(entity.getShip());
-        discount=(entity.getDiscount()==null) ? null : new DiscountOnOrderDTO(entity.getDiscount());
+        discount=(entity.getDiscountOnOrder() == null) ? null : new DiscountOnOrderDTO(entity.getDiscountOnOrder());
         totalProduct = entity.getQuantityProduct();
         dateOrder=entity.getDateOrder();
         total = entity.getTotal();

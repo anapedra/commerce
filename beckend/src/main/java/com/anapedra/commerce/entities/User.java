@@ -1,11 +1,14 @@
 package com.anapedra.commerce.entities;
 
 import com.anapedra.commerce.entities.enums.AddressType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
@@ -20,10 +23,15 @@ public class User implements UserDetails,Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+   @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentRegistration;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentUpdate;
     private String mainPhone;
+    @CPF
     private String cpf;
+    @Email
+    @Column(unique = true)
     private String registrationEmail;
     private String password;
     @OneToMany(mappedBy = "client")

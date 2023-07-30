@@ -2,6 +2,9 @@ package com.anapedra.commerce.dtos;
 
 import com.anapedra.commerce.entities.Address;
 import com.anapedra.commerce.entities.enums.AddressType;
+import com.sun.istack.NotNull;
+
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class AddressDTO implements Serializable {
@@ -9,13 +12,21 @@ public class AddressDTO implements Serializable {
 
     private Long id;
     private AddressType addressType;
+    @NotBlank(message = "Campo requerido")
     private String street;
+    @NotBlank(message = "Campo requerido")
     private Integer number;
+    @NotBlank(message = "Campo requerido")
     private String cep;
+    @NotBlank(message = "Campo requerido")
     private String borhood;
+    @NotBlank(message = "Campo requerido")
     private String city;
+    @NotBlank(message = "Campo requerido")
     private String state;
+    @NotBlank(message = "Campo requerido")
     private String country;
+    @NotBlank(message = "Campo requerido")
     private String AddressComplement;
     private Long userId;
 

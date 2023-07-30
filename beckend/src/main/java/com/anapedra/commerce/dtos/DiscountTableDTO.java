@@ -3,6 +3,7 @@ package com.anapedra.commerce.dtos;
 import com.anapedra.commerce.entities.DiscountTable;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class DiscountTableDTO {
 
     private Long id;
     @Column(length = 300)
+    @NotBlank(message = "Campo requerido")
     private String description;
     private Instant momentRegistration;
     private Instant momentUpdate;

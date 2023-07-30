@@ -1,4 +1,6 @@
 package com.anapedra.commerce.entities;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -16,7 +18,9 @@ public class Category implements Serializable {
     private Long id;
     @Column(length = 300)
     private String description;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentRegistration;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentUpdate;
     @ManyToMany(mappedBy = "categories")
     private  Set<Product> products=new HashSet<>();

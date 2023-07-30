@@ -1,6 +1,8 @@
 package com.anapedra.commerce.entities;
 
 import com.anapedra.commerce.entities.enums.PaymentType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,7 +17,8 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+ //   @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+   @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant moment;
     @OneToOne
     @MapsId
@@ -35,7 +38,20 @@ public class Payment implements Serializable {
     }
 
     public Double getTotalPayment(){
-        return order.getTotal()-order.getDiscount().getDiscount()+ (order.getShip().getShipCost());
+
+        if (order.getShip()!=null && order.getDiscountOnOrder() !=null){
+        return order.getTotal()-order.getDiscountOnOrder().getDiscount() + (order.getShip().getShipCost());
+        }
+        else if (order.getShip()!=null && order.getDiscountOnOrder()==null) {
+            return order.getTotal() + order.getShip().getShipCost();
+        }
+        else if (order.getDiscountOnOrder()!=null && order.getShip()==null){
+            return order.getTotal()-order.getDiscountOnOrder().getDiscount();
+        }
+        else {
+            return order.getTotal();
+        }
+
 
     }
 

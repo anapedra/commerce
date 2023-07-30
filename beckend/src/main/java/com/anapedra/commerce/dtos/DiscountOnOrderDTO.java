@@ -9,17 +9,17 @@ public class DiscountOnOrderDTO implements Serializable {
 
     private Double discount;
 
+    public DiscountOnOrderDTO() {
+
+    }
+
     public DiscountOnOrderDTO(DiscountOnOrder entity) {
         discount= entity.getDiscount();
-
-
     }
 
     public Double getDiscount() {
         return discount;
     }
-
-
 
 
 }

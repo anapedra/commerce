@@ -1,6 +1,7 @@
 package com.anapedra.commerce.entities;
 
 import com.anapedra.commerce.entities.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +22,9 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private LocalDate dateOrder;
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant moment;
     private Integer status;
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
@@ -29,7 +32,7 @@ public class Order implements Serializable {
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private Ship ship;
     @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
-    private DiscountOnOrder discount;
+    private DiscountOnOrder discountOnOrder;
     @ManyToOne
     @JoinColumn(name = "clientId")
     private User client;
@@ -37,14 +40,14 @@ public class Order implements Serializable {
     private Set<OrderItem> items=new HashSet<>();
 
     public Order(Long id,Instant moment,LocalDate dateOrder, OrderStatus status,
-                 Payment payment,Ship ship,DiscountOnOrder discount ,User client) {
+                 Payment payment,Ship ship,DiscountOnOrder discountOnOrder ,User client) {
         this.id = id;
         this.dateOrder = dateOrder;
         this.moment = moment;
         setStatus(status);
         this.payment = payment;
         this.ship=ship;
-        this.discount=discount;
+        this.discountOnOrder=discountOnOrder;
         this.client = client;
     }
 
@@ -111,12 +114,12 @@ public class Order implements Serializable {
         this.ship = ship;
     }
 
-    public DiscountOnOrder getDiscount() {
-        return discount;
+    public DiscountOnOrder getDiscountOnOrder() {
+        return discountOnOrder;
     }
 
-    public void setDiscount(DiscountOnOrder discount) {
-        this.discount = discount;
+    public void setDiscountOnOrder(DiscountOnOrder discountOnOrder) {
+        this.discountOnOrder = discountOnOrder;
     }
 
     public void setClient(User client) {

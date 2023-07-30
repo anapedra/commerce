@@ -21,11 +21,13 @@ public class Product implements Serializable {
     private Long id;
     @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentRegistration;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+   // @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+   @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
     private Instant momentUpdate;
     @Column(length = 300)
     private String shortDescription;
-    @Column(columnDefinition = "TEXT")
+    //@Column(columnDefinition = "TEXT")
+    @Lob
     private String fullDescription;
     private Double productCost;
     private Double initialPrice;

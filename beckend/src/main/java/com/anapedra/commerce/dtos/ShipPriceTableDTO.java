@@ -2,6 +2,7 @@ package com.anapedra.commerce.dtos;
 
 import com.anapedra.commerce.entities.ShippingPriceTable;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ public class ShipPriceTableDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Long id;
+    @NotBlank(message = "Campo obrigatório")
     private String description;
     private Double minPercentSP;
     private Double minPercentOtherStatesOfBrazilOutsideTheStateOfSP;
